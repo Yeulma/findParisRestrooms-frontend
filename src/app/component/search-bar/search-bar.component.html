@@ -1,0 +1,7 @@
+<form class="user-form" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+  <div class="search-bar-icon" id="icon">
+    <img src="../../../assets/icon-compass-white.png" alt="compass icon">
+  </div>
+  <input id="userInput" [value]="inputValue" formControlName="userInput" type="text" (keyup)="searchBarDisplay($event)"/>
+</form>
+<p class="suggestion" *ngFor="let street of streets" (click)="select(street)" [style.left]="suggestionLeft">{{street}}</p>

@@ -1,0 +1,11 @@
+body {
+    background-color: #00A8E8;
+    color: #00171F;
+    font-family: 'Ubuntu', sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+button:focus, button:active, input:focus, input:active {
+    outline: none;
+}

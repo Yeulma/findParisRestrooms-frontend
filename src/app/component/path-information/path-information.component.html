@@ -1,0 +1,12 @@
+<div (click)="displayRoute()" class="path-information-container">
+    <div class="path-information-icon">
+        <img src="../../../assets/icon-route.png" alt="rank icon">
+    </div>
+    <div class="path-information-text">
+        <div class="path-information-route">
+            <p>{{path.distance | distance}} m </p>
+            <p>{{path.duration | time}} min</p>
+        </div>
+        <p>{{toilet.address}}</p>
+    </div>
+</div>
