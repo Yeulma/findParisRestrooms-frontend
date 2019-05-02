@@ -2,18 +2,18 @@
 <div class="dashboard">
     <app-search-bar class="search-bar" *ngIf="locationDetermined && threeRoutes.length != 3" [myPosition]="location" (myPositionSelected)="myPositionSelected($event)"></app-search-bar>
     <button class="search-btn btn" *ngIf="threeRoutes.length != 3" type="text" (click)="searchClosestToilets()">SEARCH TOILETS</button>
-    
+
     <div class="location-group" *ngIf="threeRoutes.length === 3">
         <div style="width: 10%; display: flex; align-items: center">
             <img style="width: 100%" src="../../../assets/icon-compass.png" alt="compass icon">
         </div>
-        <p class="location-text">{{location.name}}</p>
+        <p class="location-text">{{location.name | address}}</p>
     </div>
     <button class="return-btn btn" *ngIf="threeRoutes.length === 3 && !pathSelected" type="text" (click)="returnFromPathProposal()">
         <img style="width: 90%" src="../../../assets/icon-return.png" alt="return ion">
     </button>
     <div class="search-results" *ngIf="threeRoutes.length == 3 && !pathSelected">
-        <app-search-results [toilets]="threeClosestToilets" [paths]="threeRoutes" (change2)="change2($event)"></app-search-results>
+        <app-path-information *ngFor="let toilet of threeClosestToilets; let i = index" [toilet]="toilet" [path]="threeRoutes[i]" (change)="change($event)"></app-path-information>
     </div>
 
     <button class="go-btn btn" *ngIf="routeToToiletDisplayed && !pathSelected" type="text" (click)="goClick()">Go</button>

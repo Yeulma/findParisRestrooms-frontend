@@ -1,11 +1,13 @@
 #mapId {
     height: 50vh;
-    width: 99%;
+    width: 100%;
+    border-radius: 2px 2px;
 }
 
 .dashboard {
     height: 50vh;
-    width: 99%;
+    width: 98%;
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,6 +17,11 @@
     border: 0;
     background-color: #00171F;
     color: white;
+    transition: background-color 0.25s;
+}
+
+.btn:active {
+    background-color: #404040;
 }
 
 .search-bar {
@@ -43,6 +50,7 @@
     height: 25px;
     padding: 5px;
     margin-top: 5px;
+    border-radius: 2px 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,11 +63,17 @@
 }
 
 .search-results {
-    height: calc(100% - 30px);
     width: 100%;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media all and (min-width: 600px) {
+    .search-results {
+        width: 50%;
+    }
 }
 
 .go-btn {
@@ -75,9 +89,14 @@
 }
 
 .followed-path {
-    height: calc(100% - 25px);
     width: 100%;
     margin-top: 5px;
+}
+
+@media all and (min-width: 600px) {
+    .followed-path {
+        width: 50%;
+    }
 }
 
 ::ng-deep .leaflet-control-zoom, ::ng-deep .leaflet-control-attribution {

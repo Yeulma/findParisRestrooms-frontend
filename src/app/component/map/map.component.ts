@@ -23,11 +23,6 @@ export class MapComponent implements OnInit {
     iconSize: [48, 48],
     iconAnchor: [24, 42]
   });
-  myIcon2 = L.icon({
-    iconUrl: '../assets/icon-marker-position.png',
-    iconSize: [48, 48],
-    iconAnchor: [24, 42]
-  });
   myMap: any;
   path: any;
   routeToToiletDisplayed = false;
@@ -62,7 +57,7 @@ export class MapComponent implements OnInit {
           this.locationDetermined = true;
         });
         this.myMap.setView([this.location.latitude, this.location.longitude], 15);
-        this.myPositionMarker = L.marker([this.location.latitude, this.location.longitude], {icon: this.myIcon2}).addTo(this.myMap);
+        this.myPositionMarker = L.circleMarker([this.location.latitude, this.location.longitude], {radius: 6, stroke: true, weight: 20, color: '#00A8E8', opacity: 0.4, fill: true, fillColor: '#00A8E8', fillOpacity: 1}).addTo(this.myMap); 
       }, (error) => {
         this.location = new MyPosition();
         this.locationDetermined = true;
@@ -108,7 +103,7 @@ export class MapComponent implements OnInit {
     for (let intersection of route.intersections) {
       waypointsArray.push(new L.LatLng(intersection[0], intersection[1]));
     }
-    this.path = new L.Polyline(waypointsArray, { color: '#00171F' });
+    this.path = new L.Polyline(waypointsArray, { color: '#00A8E8' });
     this.myMap.addLayer(this.path);
     const center = {
       latitude: (waypointsArray[0].lat + waypointsArray[waypointsArray.length - 1].lat) / 2,
@@ -130,10 +125,16 @@ export class MapComponent implements OnInit {
             break;
           }
         }
-        this.myPositionMarker = L.marker([this.location.latitude, this.location.longitude], {icon: this.myIcon2}).addTo(this.myMap);
+        this.myPositionMarker = L.circleMarker([this.location.latitude, this.location.longitude], {radius: 6, stroke: true, weight: 20, color: '#00A8E8', opacity: 0.4, fill: true, fillColor: '#00A8E8', fillOpacity: 1}).addTo(this.myMap); 
         this.myMap.setView([this.location.latitude, this.location.longitude], 15);
+        this.continueSearch();
       });
+    } else {
+      this.continueSearch();
     }
+  }
+
+  continueSearch() {  
     const time = new Date().getHours();
     this.getToilets.getOpenToilets(time).subscribe((result: Array<any>) => {
         let openToilets = [];
@@ -144,8 +145,9 @@ export class MapComponent implements OnInit {
       let min = this.getRoutes.calculateDistance(this.location.latitude, openToilets[0].latitude, this.location.longitude, openToilets[0].longitude);
       const closestToilets = [];
       for (let toilet of openToilets) {
-        if (this.getRoutes.calculateDistance(this.location.latitude, toilet.latitude, this.location.longitude, toilet.longitude) < min) {
-          min = this.getRoutes.calculateDistance(this.location.latitude, toilet.latitude, this.location.longitude, toilet.longitude);
+        const distance = this.getRoutes.calculateDistance(this.location.latitude, toilet.latitude, this.location.longitude, toilet.longitude);
+        if (distance < min) {
+          min = distance;
           closestToilets.push(toilet);
         }
       }
@@ -166,7 +168,7 @@ export class MapComponent implements OnInit {
     this.searchBarValue = event;
   }
 
-  change2(event) {
+  change(event) {
     this.displayedRoute = event.path;
     this.displayRouteToToilet(this.displayedRoute);
     this.selectedToilet = event.toilet;
@@ -180,10 +182,17 @@ export class MapComponent implements OnInit {
     }
     this.selectedToiletMarker = L.marker([this.selectedToilet.latitude, this.selectedToilet.longitude], {icon: this.myIcon1}).addTo(this.myMap);
     this.userFollow = true;
-    this.launchUserFollow();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.launchUserFollow();
+      }, (error) => {
+        return;
+      });
+    }
   }
 
   returnFromPathProposal() {
+    this.locationDetermined = null;
     this.myMap.remove();
     this.ngOnInit();
     this.path = null;
@@ -214,7 +223,7 @@ export class MapComponent implements OnInit {
     if (this.userFollow && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.myMap.removeLayer(this.myPositionMarker);
-        this.myPositionMarker = L.marker([position.coords.latitude, position.coords.longitude], {icon: this.myIcon2}).addTo(this.myMap);
+        this.myPositionMarker = L.circleMarker([position.coords.latitude, position.coords.longitude], {radius: 6, stroke: true, weight: 20, color: '#00A8E8', opacity: 0.4, fill: true, fillColor: '#00A8E8', fillOpacity: 1}).addTo(this.myMap); 
       }, (error) => {
         console.log(error);
       });

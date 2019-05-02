@@ -4,6 +4,7 @@ body {
     font-family: 'Ubuntu', sans-serif;
     overflow-y: hidden;
     overflow-x: hidden;
+    margin: 0;
 }
 
 button:focus, button:active, input:focus, input:active {

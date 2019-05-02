@@ -10,11 +10,11 @@ import { MapComponent } from './component/map/map.component';
 import { GetToiletsService } from './service/get-toilets.service';
 import { GetStreetsService } from './service/get-streets.service';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
-import { SearchResultsComponent } from './component/search-results/search-results.component';
 import { PathInformationComponent } from './component/path-information/path-information.component';
 import { GetRoutesService } from './service/get-routes.service';
 import { DistancePipe } from './pipe/distance.pipe';
 import { TimePipe } from './pipe/time.pipe';
+import { AddressPipe } from './pipe/address.pipe';
 import  { Tools } from './model/Tools';
 import { StreetAdapter } from './adapter/street-adapter';
 import { ToiletAdapter } from './adapter/toilet-adapter';
@@ -24,10 +24,10 @@ import { ToiletAdapter } from './adapter/toilet-adapter';
     AppComponent,
     MapComponent,
     SearchBarComponent,
-    SearchResultsComponent,
     PathInformationComponent,
     DistancePipe,
-    TimePipe
+    TimePipe,
+    AddressPipe
   ],
   imports: [
     BrowserModule,
