@@ -3,7 +3,7 @@ export class Tools {
     url: string = 'http://localhost:8080/';
 
     mapBox: any = {
-        TOKEN: '&access_token=pk.eyJ1IjoieWV1bG1hIiwiYSI6ImNqcHRzcjZmcDA4cGw0OXMybWd4bnYwNDYifQ.uXGMYNG2cGnCa0XCMNvT5Q',
+        TOKEN: '&access_token=',
         GEOCODING_URL: 'https://api.mapbox.com/geocoding/v5/mapbox.places/',
         DIRECTIONS_URL: 'https://api.mapbox.com/directions/v5/mapbox/walking/'
     };
